@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pizza Pizza</title>
+        
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width'>
+<link type = "text/css" rel ="stylesheet" href = "pizza.css">
+        <link href="jquery-ui.css" rel="stylesheet">
+        <link href="jquery-ui.theme.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <h1>Papa's Pizza</h1>
+        <div id="tabs">
+            <ul>
+                <li><a href="#home_tab">Home</a></li>
+                <li><a href="#order_tab">Order Pizza</a></li>
+                
+            </ul>
+            <div id="home_tab">
+                <h2>Welcome to Papa's Pizza</h2>
+                <p>...simple, authentic, delicious</p>
+            </div>
+            <div id="order_tab">
+                <form name='pizzaForm' id="pizzaForm" action='PapaBotulism.html' method='post' enctype='text/plain'>
+                    <div class='left'>
+                        <h3>Who's Ordering?</h3>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><label for='input_name' form="pizzaForm">Name: </label></td>
+<!--                                                               1. html validation-->
+                                    <td><input id='input_name' name='Name' title='Your Name' type='text' class="prog" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label for='input_phone'>Phone: </label></td>
+                                    <td><input id='input_phone' name='Phone' title='Phone Number' type='tel' pattern="(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$" class="prog" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label for='input_email'>Email: </label></td>
+                                    <td><input id='input_email' name='Email' title='Your Email' type='email' class="prog" required></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>Where To Deliver</h3>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><label for='input_address'>Address: </label></td>
+                                    <td><input id='input_address' name='Address' title='Your Address' type='text' class="prog"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for='input_city'>City: </label></td>
+                                    <td><input id='input_city' name='City' title='City' type='text'  class="prog"></td>
+                                </tr>
+                                <tr>
+                                    <td>State:</td>
+                                    <td id="states"></td>
+                                </tr>
+                                <tr>
+                                    <td>Zip:</td>
+                                    <td><input type="text" id="input_zip" name="Zip" size="8"  class="prog" title="Your Zip Code"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="pizza" class="right"></div>
+        
+                    <div style='clear:both'></div>
+                    <h3>Anything Else?</h3>
+        
+                    <label for='input_comments'>Comments or Special Instructions:</label>
+                    <textarea id='input_comments' name='Comments' title='Any specifications, allergen notifications etc.' 
+                              style='width:100%; height:100px; box-sizing: border-box; margin-top: 10px; min-width: 100%; max-width: 100%;'></textarea>
+        
+                    <div class='formButtons'>
+                        <input  id="submit" type='submit' value='Submit'>
+                        <input type='reset' value='Reset'>
+                    </div>
+                </form>
+            </div>
+             <div id="mySlideshow" class="cycle-slideshow"></div>
+        </div>
+        <div id="progressbar"></div>
+        <!--            fills in the form from a json file-->
+        <script src="pizza.js"></script>
+        <!--         import jquery library-->
+        <script src="jquery.js"></script>
+        <!--          import query cycle-->
+        <script src="cycle.js"></script>
+        <!--        import jquery ui-->
+        <script src="jquery-ui.min.js"></script>
+        <!--            jquery for mouseOver functions-->
+        <script src="mouseOver.js"></script>
+
+        <!--            2. javascript API validation-->
+        <script src="validate.js"></script>
+        <!--        import jquery validation plugin-->
+        <script src="jquery.validate.js"></script>
+        <!--        3. jQuery Plugin Validation-->
+        <script src="jqueryForm.validate.js"></script>
+        <!--        specials carousel-->
+        <script src="carousel.js"></script>
+        <!--        load states from json file-->
+        <script src="states.js"></script>
+        <script>
+            $(function() {
+//JQuery UI 1
+                $("#tabs").resizable();
+//JQuery UI 2
+                $("#tabs").draggable();
+//JQuery UI 3
+                $("#tabs").tabs();
+
+//JQuery UI 4
+                $("#progressbar").progressbar({
+                    value: 0
+                });
+
+                $(".prog").change(function() {
+                    var pbVal = 0;
+                    if ($("#input_name").val().length > 0)
+                        pbVal += 20;
+                    if ($("#input_phone").val().length > 0)
+                        pbVal += 20;
+                    if ($("#input_email").val().length > 0)
+                        pbVal += 15;
+                    if ($("#input_address").val().length > 0)
+                        pbVal += 15;
+                    if ($("#input_city").val().length > 0)
+                        pbVal += 15;
+                    if ($("#input_zip").val().length > 0)
+                        pbVal += 15;
+                    $("#progressbar").progressbar("option", "value", pbVal);
+                    $("#progressbar").css({'background': 'white', 'border-radius': '100px'});
+                    $("#progressbar > div").css({'background': 'Red', 'padding-top': '10px', 'margin': '5px', 'border-radius': '100px'});
+//JQuery UI 5  
+                    $( document ).tooltip();
+                    return false;
+
+                });
+
+
+
+            });
+        </script>
+    </body>
+</html>
